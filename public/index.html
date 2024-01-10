@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+        <title>Share screen</title>
+    </head>
+    <body>
+        
+        <button id="screen">Share</button>
+        <img id="screenImg" width="500" height="500" src="" alt="">
+
+
+        <script src="./jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+                const socket = io();
+
+                $('#screen').click(function() {
+                    socket.emit('screen')
+                })
+
+                socket.on('image', (data) => {
+                    $('#screenImg').attr('src', `data:image/jpeg;base64,${data.data}`)
+                })
+            })
+        </script>
+    </body>
+</html>
